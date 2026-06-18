@@ -1,33 +1,34 @@
 import streamlit as st
-import string
-import random
 
-name=st.text_input("Bir isim giriniz",value="Ahmet")
-surname=st.text_input("Soyisim giriniz",value="Öztürk")
-domain="arıbilgi.com"
+st.title("Ücretli Vergi Hesaplama (2026)")
+gelir=st.number_input("Gelir giriniz", min_value=0)
 
-basharf=name[0]
+vergi=0
 
-email=basharf+"."+surname+"@"+domain
+if gelir <=190_000:
+  vergi=gelir*0.15
 
-email=email.lower()
-email=email.replace("ç","c")
-email=email.replace("ü","u")
-email=email.replace("ğ","g")
-email=email.replace("ş","s")
-email=email.replace("ı","i")
-email=email.replace("ö","o")
+elif gelir<=400_000:
+  vergi=((190_000*0.15)
+  +((gelir-190_000)*0.20))
 
-st.write(email)
+elif gelir<=1_500_000:
+  vergi=((190_000*0.15)
+  +(210_000*0.20)
+  +((gelir-400_000)*0.27))
+
+elif gelir<=5_300_000:
+  vergi=((190_000*0.15)
+  +(210_000*0.20)
+  +(1_100_000*0.27)
+  +((gelir-1_500_000)*0.35))
+
+else:
+  vergi=((190_000*0.15)
+  +(210_000*0.20)
+  +(1_100_000*0.27)
+  +(3_800_000*0.35)
+  +((gelir-5_300_000)*0.40))
 
 
-Uzunluk=8
-
-Karakterler=(string.ascii_lowercase+
-string.ascii_uppercase+
-string.digits+
-string.punctuation)
-
-Password="" .join(random.choices(Karakterler,k=Uzunluk))
-
-st.text_input("Password", value=Password)
+st.write("Vergi.",vergi)
